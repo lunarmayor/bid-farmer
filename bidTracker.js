@@ -30,7 +30,6 @@ const bidTracker = () => {
       filter((events) => events.length > 0)
     )
     .subscribe(async (events) => {
-      console.log(events);
       await bidsCollection.insertMany(events);
     });
 };
