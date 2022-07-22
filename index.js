@@ -20,7 +20,7 @@ const init = async () => {
   await server.start();
   console.log("Server running on %s", server.info.uri);
 
-  bidTracker();
+   return bidTracker();
 };
 
 process.on("unhandledRejection", (err) => {
