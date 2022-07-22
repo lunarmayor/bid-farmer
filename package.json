@@ -1,0 +1,20 @@
+{
+  "name": "bid-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.2",
+    "@opensea/stream-js": "^0.0.20",
+    "dotenv": "^16.0.1",
+    "mongodb": "^4.8.0",
+    "rxjs": "^7.5.6",
+    "ws": "^8.8.1"
+  }
+}
