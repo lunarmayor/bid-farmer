@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const bidTracker = require("./bidTracker");
+const cancelTracker = require("./cancelTracker");
 const Hapi = require("@hapi/hapi");
 
 const init = async () => {
