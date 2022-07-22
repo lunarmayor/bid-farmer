@@ -5,8 +5,7 @@ const Hapi = require("@hapi/hapi");
 
 const init = async () => {
   const server = Hapi.server({
-    port: 3000,
-    host: "localhost",
+    port: process.env.PORT || 3000,
   });
 
   server.route({
@@ -17,10 +16,10 @@ const init = async () => {
     },
   });
 
-  await server.start();
-  console.log("Server running on %s", server.info.uri);
+  //await server.start();
+  // console.log("Server running on %s", server.info.uri);
 
-   return bidTracker();
+  return bidTracker();
 };
 
 process.on("unhandledRejection", (err) => {
