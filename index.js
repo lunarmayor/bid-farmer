@@ -1,7 +1,9 @@
 require("dotenv").config();
+const db = require("./db");
 
 const bidTracker = require("./bidTracker");
 const cancelTracker = require("./cancelTracker");
+const bidFarmer = require("./bidFarmer");
 const Hapi = require("@hapi/hapi");
 
 const init = async () => {
@@ -21,7 +23,10 @@ const init = async () => {
   await server.start();
   console.log("Server running on %s", server.info.uri);
 
-  return bidTracker();
+  if (false) {
+    return bidTracker();
+  }
+//  bidFarmer();
 };
 
 process.on("unhandledRejection", (err) => {
