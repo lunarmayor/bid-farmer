@@ -2,17 +2,7 @@ require("dotenv").config();
 const { Worker, isMainThread, workerData } = require("worker_threads");
 const fetch = require("node-fetch");
 const db = require("../db");
-
-const formatOrder = (order) => {
-  return {
-    ...order,
-    created_date: new Date(order.created_date),
-    closing_date: new Date(order.closing_date),
-    expiration_date: new Date(order.expiration_date),
-  };
-};
-
-(async () => {
+const formatOrder = require("../formatSeaportOrder")(async () => {
   try {
     let config = await db.collection("jobConfig").findOne();
     const { cursor: historicalCursor } = config;

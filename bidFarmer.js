@@ -26,7 +26,7 @@ const bidTracker = async () => {
           },
         },
       },
-      {
+      ...(false && {
         name: "fetchHistoricalOffers",
         path: "./jobs/fetchHistoricalOffers.js",
         worker: {
@@ -34,7 +34,7 @@ const bidTracker = async () => {
             key: process.env.OPENSEA_API_KEY2,
           },
         },
-      },
+      }),
     ],
   });
 
