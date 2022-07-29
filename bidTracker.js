@@ -9,6 +9,7 @@ const bidTracker = () => {
     opensea.onItemReceivedBid("*", async (event) => {
       let { payload } = event;
       let { item } = payload;
+      console.log(event);
 
       subscriber.next({
         id: item.nft_id,

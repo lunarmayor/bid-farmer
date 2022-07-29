@@ -13,6 +13,7 @@
   "dependencies": {
     "@hapi/hapi": "^20.2.2",
     "@opensea/stream-js": "^0.0.20",
+    "@supercharge/promise-pool": "^2.3.0",
     "bree": "^9.1.1",
     "dotenv": "^16.0.1",
     "mongodb": "^4.8.0",
