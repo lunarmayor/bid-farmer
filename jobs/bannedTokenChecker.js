@@ -19,7 +19,7 @@ const collections = [
         try {
           let res = await fetch(
             `https://looksrare.org/api/os/asset/${collection.address}/${i}`
-          ).then((res) => res.json());
+          ).then((res) => console.log(res) || res.json());
           console.log("process: ", i);
 
           return {
