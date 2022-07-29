@@ -25,14 +25,18 @@ const collections = [
       });
 
     await db.collection("bannedTokenStatuses").bulkWrite(
-      results.map((token) => ({
-        updateOne: {
-          update: {
+      results.map(
+        (token) => ({
+          updateOne: {
             filter: { tokenId: token.tokenId, contract: token.contract },
-            $set: token,
+            update: {
+              $set: token,
+            },
+            upsert: true,
           },
-        },
-      }))
+        }),
+        { ordered: false }
+      )
     );
   }
 })();
