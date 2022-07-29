@@ -10,7 +10,7 @@ const collections = [
 
 (async () => {
   for (const collection of collections) {
-    let { results } = await PromisePool.withConcurrency(100)
+    let { results } = await PromisePool.withConcurrency(1)
       .for([...Array(collection.total).keys()])
       .handleError(async (error, i) => {
         console.log("error: ", i);
