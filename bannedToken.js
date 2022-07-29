@@ -12,6 +12,7 @@ const bannedToken = async () => {
     ],
   });
 
+  await bree.run("bannedTokenChecker");
   await bree.start();
 };
 
