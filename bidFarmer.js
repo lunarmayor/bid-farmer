@@ -22,19 +22,19 @@ const bidTracker = async () => {
         //closeWorkerAfterMs: 5900 * 2,
         worker: {
           workerData: {
-            key: process.env.OPENSEA_API_KEY,
+            key: process.env.OPENSEA_API_KEY2,
           },
         },
       },
-      // ...(false && {
-      //   name: "fetchHistoricalOffers",
-      //   path: "./jobs/fetchHistoricalOffers.js",
-      //   worker: {
-      //     workerData: {
-      //       key: process.env.OPENSEA_API_KEY2,
-      //     },
-      //   },
-      // }),
+      {
+        name: "fetchHistoricalOffers",
+        path: "./jobs/fetchHistoricalOffers.js",
+        worker: {
+          workerData: {
+            key: process.env.OPENSEA_API_KEY2,
+          },
+        },
+      },
     ],
   });
 

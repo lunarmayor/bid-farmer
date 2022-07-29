@@ -26,7 +26,7 @@ const init = async () => {
   if (false) {
     return bidTracker();
   }
-  false && bidFarmer();
+  bidFarmer();
 };
 
 process.on("unhandledRejection", (err) => {

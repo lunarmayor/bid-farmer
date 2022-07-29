@@ -7,6 +7,7 @@ const formatOrder = require("../formatSeaportOrder");
 let count = 0;
 
 (async () => {
+  console.log(workerData);
   try {
     let config = await db.collection("jobConfig").findOne();
     const fetchBatch = async (cursor) => {
@@ -16,7 +17,7 @@ let count = 0;
           (cursor ? `&cursor=${cursor}` : ""),
         {
           headers: {
-            "X-API-KEY": process.env.OPENSEA_API_KEY,
+            "X-API-KEY": workerData.key,
           },
         }
       ).then((res) => res.json());
@@ -31,12 +32,11 @@ let count = 0;
             .filter(
               (order) =>
                 !config.lastFetched ||
-                +new Date(order.created_date) > +new Date(config.lastFetched)
+                +new Date(order.createdDate) > +new Date(config.lastFetched)
             )
         );
       let newestOrderDate = orders[0].created_date;
       let oldestOrderDate = orders[orders.length - 1].created_date;
-      console.log(oldestOrderDate);
 
       if (count === 0) {
         await db.collection("jobConfig").updateOne(

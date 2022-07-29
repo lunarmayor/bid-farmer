@@ -2,7 +2,8 @@ require("dotenv").config();
 const { Worker, isMainThread, workerData } = require("worker_threads");
 const fetch = require("node-fetch");
 const db = require("../db");
-const formatOrder = require("../formatSeaportOrder")(async () => {
+const formatOrder = require("../formatSeaportOrder");
+(async () => {
   try {
     let config = await db.collection("jobConfig").findOne();
     const { cursor: historicalCursor } = config;
@@ -45,7 +46,7 @@ const formatOrder = require("../formatSeaportOrder")(async () => {
         } else {
           setTimeout(() => {
             fetchBatch(next);
-          }, Math.max(0, 1000 - time));
+          }, Math.max(0, 2000 - time));
         }
       } catch (err) {
         return process.exit(0);
