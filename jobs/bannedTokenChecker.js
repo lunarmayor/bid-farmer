@@ -24,7 +24,7 @@ const collections = [
         };
       });
 
-    await db.bulkWrite(
+    await db.collection("bannedTokenStatuses").bulkWrite(
       results.map((token) => ({
         updateOne: {
           update: {
