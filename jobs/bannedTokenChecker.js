@@ -10,19 +10,29 @@ const collections = [
 
 (async () => {
   for (const collection of collections) {
-    let { results, errors } = await PromisePool.withConcurrency(1000)
-      .for([...Array(collection.total).keys()])
-      .process(async (i) => {
-        let res = await fetch(
-          `https://looksrare.org/api/os/asset/${collection.address}/${i}`
-        ).then((res) => res.json());
+    let { results, errors } = await PromisePool.withConcurrency(100).for([
+      ...Array(collection.total).keys(),
+    ]);
 
-        return {
-          contract: collection.address,
-          tokenId: i,
-          isBanned: res,
-        };
-      });
+    handleError(async (error, i) => {
+      // you must collect errors yourself
+      if (error instanceof ValidationError) {
+        return errors.push(error);
+      }
+
+      console.log(i);
+    }).process(async (i) => {
+      let res = await fetch(
+        `https://looksrare.org/api/os/asset/${collection.address}/${i}`
+      ).then((res) => res.json());
+
+      return {
+        contract: collection.address,
+        tokenId: i,
+        isBanned: !res,
+      };
+    });
+    console.log(JSON.stringify(errors));
 
     await db.collection("bannedTokenStatuses").bulkWrite(
       results.map(
