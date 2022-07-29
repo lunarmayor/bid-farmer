@@ -10,14 +10,9 @@ const collections = [
 
 (async () => {
   for (const collection of collections) {
-    let { results, errors } = await PromisePool.withConcurrency(100)
+    let { results } = await PromisePool.withConcurrency(100)
       .for([...Array(collection.total).keys()])
       .handleError(async (error, i) => {
-        // you must collect errors yourself
-        if (error instanceof ValidationError) {
-          return errors.push(error);
-        }
-
         console.log("error: ", i);
       })
       .process(async (i) => {
@@ -32,7 +27,6 @@ const collections = [
           isBanned: !res,
         };
       });
-    console.log(JSON.stringify(errors));
 
     await db.collection("bannedTokenStatuses").bulkWrite(
       results.map(
