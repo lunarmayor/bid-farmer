@@ -16,31 +16,39 @@ const collections = [
         console.log("error: ", i);
       })
       .process(async (i) => {
-        let res = await fetch(
-          `https://looksrare.org/api/os/asset/${collection.address}/${i}`
-        ).then((res) => res.json());
-        console.log("process: ", i);
+        try {
+          let res = await fetch(
+            `https://looksrare.org/api/os/asset/${collection.address}/${i}`
+          ).then((res) => res.json());
+          console.log("process: ", i);
 
-        return {
-          contract: collection.address,
-          tokenId: i,
-          isBanned: !res,
-        };
+          return {
+            contract: collection.address,
+            tokenId: i,
+            isBanned: !res,
+          };
+        } catch (err) {
+          console.log(err);
+
+          return null;
+        }
       });
 
     await db.collection("bannedTokenStatuses").bulkWrite(
-      results.map(
-        (token) => ({
-          updateOne: {
-            filter: { tokenId: token.tokenId, contract: token.contract },
-            update: {
-              $set: token,
+      results
+        .filter((x) => x)
+        .map(
+          (token) => ({
+            updateOne: {
+              filter: { tokenId: token.tokenId, contract: token.contract },
+              update: {
+                $set: token,
+              },
+              upsert: true,
             },
-            upsert: true,
-          },
-        }),
-        { ordered: false }
-      )
+          }),
+          { ordered: false }
+        )
     );
   }
 
