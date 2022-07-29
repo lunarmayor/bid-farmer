@@ -8,11 +8,11 @@ const bannedToken = async () => {
       {
         name: "bannedTokenChecker",
         cron: "*/10 * * * *",
+        timeout: 0,
       },
     ],
   });
 
-  await bree.run("bannedTokenChecker");
   await bree.start();
 };
 
